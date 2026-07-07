@@ -1,0 +1,361 @@
+/* ============================================================
+   InoReko — Dunia Muzik
+   Design: "Manuscript at Dusk" — a fingering-chart nav, staff-line
+   texture and finger-hole motif borrowed from the recorder itself.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --ink:        #1B231E;
+  --bg:         #1B231E;
+  --bg-2:       #232D25;
+  --bg-3:       #2C3830;
+  --paper:      #F3ECDA;
+  --paper-2:    #EAE0C7;
+  --paper-text: #2B2116;
+  --brass:      #C89B3C;
+  --brass-light:#E4C878;
+  --maple:      #B06B3A;
+  --cream:      #F3ECDA;
+  --line:       rgba(243,236,218,0.14);
+  --line-soft:  rgba(43,33,22,0.14);
+  --shadow:     0 18px 40px rgba(0,0,0,0.28);
+  --radius:     14px;
+}
+
+*,*::before,*::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width:100%; display:block; }
+
+h1,h2,h3{
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  margin: 0 0 0.4em;
+  letter-spacing: -0.01em;
+}
+
+a{ color: inherit; text-decoration: none; }
+
+.eyebrow{
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+/* ---------- Staff-line ambient texture ---------- */
+.staff-bg{
+  position: relative;
+}
+.staff-bg::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 27px,
+    var(--line) 27px, var(--line) 28px,
+    transparent 28px, transparent 55px
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ---------- Finger-hole motif (signature element) ---------- */
+.holes{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  margin: 2.2rem 0;
+}
+.holes span{
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--brass);
+  opacity: 0.35;
+}
+.holes span:nth-child(1){ opacity:1; width:12px; height:12px; }
+.holes.on-paper span{ background: var(--maple); }
+.holes.on-paper span:nth-child(1){ background: var(--brass); }
+
+/* ---------- Top navigation: styled like a fingering chart strip ---------- */
+.topbar{
+  position: sticky; top:0; z-index: 50;
+  background: rgba(27,35,30,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.9rem 1.6rem;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.brand{
+  display:flex; align-items:center; gap: 0.7rem;
+}
+.brand img{ width: 38px; height:38px; object-fit: contain; }
+.brand-word{
+  font-family:'Fraunces', serif;
+  font-size: 1.05rem;
+  line-height:1.05;
+  letter-spacing: 0.02em;
+}
+.brand-word b{ color: var(--brass-light); display:block; font-weight:700; }
+
+.nav-bar{
+  display:flex;
+  gap: 0.4rem;
+  font-family:'Space Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.nav-btn{
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: rgba(243,236,218,0.75);
+  transition: all .18s ease;
+  position: relative;
+}
+.nav-btn:hover{ color: var(--cream); border-color: var(--line); }
+.nav-btn.active{
+  color: var(--ink);
+  background: var(--brass);
+}
+
+/* breadcrumb */
+.crumbs{
+  max-width: 1180px;
+  margin: 1.1rem auto 0;
+  padding: 0 1.6rem;
+  font-family:'Space Mono', monospace;
+  font-size: 0.74rem;
+  color: rgba(243,236,218,0.5);
+  letter-spacing: 0.03em;
+}
+.crumbs a:hover{ color: var(--brass-light); }
+.crumbs .sep{ margin: 0 0.5em; opacity:0.5; }
+
+/* ---------- Hero (home page) ---------- */
+.hero{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 3.2rem 1.6rem 4rem;
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items:center;
+}
+.hero-title{
+  font-size: clamp(3.2rem, 8vw, 6rem);
+  line-height: 0.95;
+  color: var(--cream);
+}
+.hero-title .accent{ color: var(--brass-light); font-style: italic; }
+.hero-lede{
+  max-width: 30em;
+  color: rgba(243,236,218,0.82);
+  font-size: 1.08rem;
+  margin: 1.3rem 0 0.4rem;
+}
+.hero-editor{
+  font-family:'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: rgba(243,236,218,0.5);
+  margin-bottom: 1.8rem;
+}
+.hero-actions{ display:flex; gap: 0.9rem; flex-wrap: wrap; }
+.btn{
+  font-family:'Space Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--brass);
+  transition: all .18s ease;
+  display:inline-block;
+}
+.btn-solid{ background: var(--brass); color: var(--ink); }
+.btn-solid:hover{ background: var(--brass-light); }
+.btn-ghost{ color: var(--brass-light); }
+.btn-ghost:hover{ background: rgba(200,155,60,0.12); }
+
+.hero-visual{
+  position: relative;
+  display:flex; justify-content:center; align-items:center;
+}
+.hero-visual img{
+  max-width: 340px;
+  transform: rotate(8deg);
+  filter: drop-shadow(0 24px 30px rgba(0,0,0,0.45));
+}
+
+/* ---------- Section shell for interior pages ---------- */
+.page{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.2rem 1.6rem 5rem;
+}
+.page-head{ margin-bottom: 2.2rem; max-width: 42em; }
+.page-head h1{ font-size: clamp(2rem, 4.2vw, 2.8rem); color: var(--cream); }
+.page-head p{ color: rgba(243,236,218,0.72); }
+
+/* ---------- Menu cards (pembelajaran / praktikal / soprano / alto etc) ---------- */
+.card-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+.card{
+  background: var(--paper);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  color: var(--paper-text);
+  display:flex;
+  flex-direction: column;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.card:hover{ transform: translateY(-6px); box-shadow: 0 26px 48px rgba(0,0,0,0.36); }
+.card-img{ aspect-ratio: 16/10; overflow:hidden; }
+.card-img img{ width:100%; height:100%; object-fit: cover; }
+.card-img.icon{
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(160deg, var(--paper-2), var(--paper));
+}
+.card-img.icon img{ width: 42%; height: 42%; object-fit: contain; }
+.card-body{ padding: 1.3rem 1.4rem 1.6rem; display:flex; flex-direction:column; gap:0.5rem; flex:1; }
+.card-title{
+  font-family:'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--paper-text);
+}
+.card-cta{
+  margin-top:auto;
+  font-family:'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--maple);
+}
+
+/* row of pill menu cards for simple two-choice screens */
+.choice-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.4rem;
+  max-width: 900px;
+}
+
+/* ---------- Detail / explanation panels ---------- */
+.panel{
+  background: var(--paper);
+  color: var(--paper-text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2.2rem;
+  display:grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 2.2rem;
+  align-items:center;
+  margin-bottom: 2.2rem;
+}
+.panel-img{ border-radius: 10px; overflow:hidden; }
+.panel-img img{ width:100%; height:100%; object-fit: cover; }
+.panel h1, .panel h2{ color: var(--paper-text); font-size: 1.6rem; }
+.panel .eyebrow{ color: var(--maple); }
+.panel p{ margin: 0 0 0.85rem; color: rgba(43,33,22,0.86); }
+.panel p:last-child{ margin-bottom:0; }
+
+@media (max-width: 760px){
+  .panel{ grid-template-columns: 1fr; }
+}
+
+/* ---------- Gallery cards for scales / arpeggios / exercises / songs ---------- */
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.gallery-card{
+  background: var(--paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.4rem 1.4rem 1.6rem;
+  color: var(--paper-text);
+}
+.gallery-card h1{
+  font-size: 1.15rem;
+  color: var(--paper-text);
+  margin-bottom: 0.9rem;
+}
+.gallery-card img{ border-radius: 8px; margin-top: 0.9rem; }
+.gallery-card audio{ width:100%; margin-top: 0.3rem; }
+audio{ accent-color: var(--brass); }
+
+/* ---------- About page ---------- */
+.about-card{
+  max-width: 640px;
+  margin: 3rem auto 0;
+  background: var(--paper);
+  color: var(--paper-text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 3rem 2.5rem;
+  text-align:center;
+}
+.about-card .eyebrow{ color: var(--maple); }
+.about-card h1{ font-size: 2.4rem; color: var(--paper-text); margin: 0.4rem 0 1rem; }
+.about-card .class-line{
+  font-family:'Space Mono', monospace;
+  font-size: 0.85rem;
+  color: rgba(43,33,22,0.7);
+  letter-spacing: 0.03em;
+}
+
+footer{
+  text-align:center;
+  padding: 2.4rem 1.6rem;
+  font-family:'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: rgba(243,236,218,0.4);
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px){
+  .hero{ grid-template-columns: 1fr; text-align:center; }
+  .hero-actions{ justify-content:center; }
+  .hero-visual img{ max-width: 220px; }
+  .panel{ padding: 1.5rem; }
+}
+@media (max-width: 640px){
+  .topbar-inner{ flex-direction:column; gap: 0.8rem; padding: 0.9rem 1.1rem; }
+  .nav-bar{ width:100%; justify-content:center; flex-wrap:wrap; }
+}
+
+/* Accessibility: visible focus */
+a:focus-visible, button:focus-visible{
+  outline: 2px solid var(--brass-light);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; }
+}
